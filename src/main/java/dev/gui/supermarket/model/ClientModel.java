@@ -1,11 +1,17 @@
 package dev.gui.supermarket.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Table(name = "TB_CLIENT")
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ClientModel {
 
     @Id
