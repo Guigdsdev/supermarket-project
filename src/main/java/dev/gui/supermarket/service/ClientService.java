@@ -23,8 +23,6 @@ public class ClientService {
         this.mapper = mapper;
     }
 
-
-
     public List<ClientDTO> listAllClients(){
         List<ClientModel> client = repository.findAll();
         return client.stream().map(mapper::map).collect(Collectors.toList());
@@ -37,6 +35,17 @@ public class ClientService {
     }
 
     public ClientDTO editClient(Long id, ClientDTO clientDTO){
+        Optional<ClientModel> clientExist = repository.findById(id);
+        if(clientExist.isPresent()){
+            ClientModel client = mapper.map(clientDTO);
+            client.setId(id);
+            ClientModel clientSave = repository.save(client);
+            return mapper.map(client);
+        }
+        return null;
+    }
+
+    public ClientDTO findClient(Long id){
         Optional<ClientModel> client = repository.findById(id);
         return client.map(mapper::map).orElse(null);
     }
@@ -47,6 +56,5 @@ public class ClientService {
         }
         return null;
     }
-
 
 }
